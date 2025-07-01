@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  business-service:
+    image: business-service-docker
+    container_name: business-service
+    build:
+      context: ./business-connect-service
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
+    depends_on:
+      - db
+    networks:
+      - business-network
+    restart: unless-stopped
+
+  db:
+    image: postgres:16
+    container_name: postgres-db
+    environment:
+      POSTGRES_DB: businessdb
+      POSTGRES_USER: bc_user
+      POSTGRES_PASSWORD: bc_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - business-network
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+
+networks:
+  business-network:
+    driver: bridge

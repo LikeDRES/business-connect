@@ -1,0 +1,20 @@
+# Evita enviar la carpeta target (builds previos)
+target/
+
+# Configuración del IDE
+.idea/
+*.iml
+
+# Archivos de Git
+.git/
+.gitignore
+
+# Configuración de sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos de logs
+*.log
+
+# Archivos sensibles
+.env
