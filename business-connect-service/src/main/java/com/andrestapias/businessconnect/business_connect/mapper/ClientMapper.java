@@ -1,11 +1,14 @@
 package com.andrestapias.businessconnect.business_connect.mapper;
 
-import com.andrestapias.businessconnect.business_connect.dto.ClientDTO;
+import com.andrestapias.businessconnect.business_connect.dto.ClientCreateDTO;
+import com.andrestapias.businessconnect.business_connect.dto.ClientResponseDTO;
 import com.andrestapias.businessconnect.business_connect.model.Client;
 
 public class ClientMapper {
-    public static Client toEntity(ClientDTO dto) {
-        if(dto == null) return null;
+
+    // Convierte de DTO de creación a entidad
+    public static Client toEntity(ClientCreateDTO dto) {
+        if (dto == null) return null;
 
         return Client.builder()
                 .firstname(dto.getFirstName())
@@ -15,14 +18,16 @@ public class ClientMapper {
                 .build();
     }
 
-    public static ClientDTO toDTO(Client entity){
-        if(entity == null) return null;
+    // Convierte de entidad a DTO de respuesta
+    public static ClientResponseDTO toResponseDTO(Client client) {
+        if (client == null) return null;
 
-        return ClientDTO.builder()
-                .firstName(entity.getFirstname())
-                .lastName(entity.getLastname())
-                .email(entity.getEmail())
-                .phone(entity.getPhone())
+        return ClientResponseDTO.builder()
+                .id(client.getId()) // ← importante para la respuesta
+                .firstName(client.getFirstname())
+                .lastName(client.getLastname())
+                .email(client.getEmail())
+                .phone(client.getPhone())
                 .build();
     }
 }

@@ -21,3 +21,7 @@ spring:
     init:
       mode: never
       continue-on-error: true
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
